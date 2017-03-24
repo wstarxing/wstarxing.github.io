@@ -519,19 +519,60 @@ print d
 <blockquote>
 <p>‘Dictionary that remembers insertion order’<br>字典是Python开发中很常用的一种数据结构，但dict有个缺陷（其实也不算缺陷），迭代时并不是按照元素添加的顺序进行，可能在某些场景下，不能满足我们的要求。<br>有序字典与字典是一样的功能，只不过它保持插入字典的顺序，当需要遍历时会先访问最先插入的项。<br>一个顺序字典会记住它的key第一次插入时的顺序<br>如果一新条目重写了一个已存在的条目，它第一次插入的顺序是不会改变的。<br>删除一个条目并重新插入它，那它的顺序将移动到末尾<br>所以从OrderedDict的字面意思就可以出来ordereddict是有顺序(key被插入的先后顺序)的字典，而普通的字典是无序的 。<br>判断两个有序字段是否相等(==)需要考虑元素插入的顺序是否相等</p>
 </blockquote>
-<p> od = OrderedDict()<br> od[‘b’] = ‘bc’<br> od[‘1’] = 2<br> od[‘a’] = ‘a’<br> od[‘A’] = ‘A’<br> print od.keys()</p>
-<h1 id="‘b’-‘1’-‘a’-‘A’"><a href="#‘b’-‘1’-‘a’-‘A’" class="headerlink" title="[‘b’, ‘1’, ‘a’, ‘A’]"></a>[‘b’, ‘1’, ‘a’, ‘A’]</h1><p> od1 = OrderedDict({‘b’: ‘bc’, ‘1’: 2, ‘a’: ‘a’, ‘A’: ‘A’})<br> print od1.keys()</p>
-<h1 id="‘1’-‘a’-‘b’-‘A’"><a href="#‘1’-‘a’-‘b’-‘A’" class="headerlink" title="[‘1’, ‘a’, ‘b’, ‘A’]"></a>[‘1’, ‘a’, ‘b’, ‘A’]</h1><p> od2 = OrderedDict([(‘b’, ‘bc’), (‘1’, 2), (‘a’, ‘a’), (‘A’, ‘A’)])<br> print od2.keys()</p>
-<h1 id="‘b’-‘1’-‘a’-‘A’-1"><a href="#‘b’-‘1’-‘a’-‘A’-1" class="headerlink" title="[‘b’, ‘1’, ‘a’, ‘A’]"></a>[‘b’, ‘1’, ‘a’, ‘A’]</h1><p> od3 = {‘b’: ‘bc’, ‘1’: 2, ‘a’: ‘a’, ‘A’: ‘A’}<br> print od3.keys()</p>
-<h1 id="‘1’-‘a’-‘b’-‘A’-1"><a href="#‘1’-‘a’-‘b’-‘A’-1" class="headerlink" title="[‘1’, ‘a’, ‘b’, ‘A’]"></a>[‘1’, ‘a’, ‘b’, ‘A’]</h1><h1 id="读取json串时保持原有顺序"><a href="#读取json串时保持原有顺序" class="headerlink" title="读取json串时保持原有顺序"></a>读取json串时保持原有顺序</h1><p> import json<br> from collections import OrderedDict<br> metadata = json.loads(text, object_pairs_hook=OrderedDict);  </p>
-<h1 id="使用OrderedDict生成新按照key排序的dict"><a href="#使用OrderedDict生成新按照key排序的dict" class="headerlink" title="使用OrderedDict生成新按照key排序的dict"></a>使用OrderedDict生成新按照key排序的dict</h1><p> OrderedDict(sorted(d.items(), key=lambda t: t[0]))<br> OrderedDict([(‘apple’, 4), (‘banana’, 3), (‘orange’, 2), (‘pear’, 1)])</p>
-</li>
+<pre><code>od = OrderedDict()
+od[&apos;b&apos;] = &apos;bc&apos;
+od[&apos;1&apos;] = 2
+od[&apos;a&apos;] = &apos;a&apos;
+od[&apos;A&apos;] = &apos;A&apos;
+print od.keys()
+# [&apos;b&apos;, &apos;1&apos;, &apos;a&apos;, &apos;A&apos;]
+
+od1 = OrderedDict({&apos;b&apos;: &apos;bc&apos;, &apos;1&apos;: 2, &apos;a&apos;: &apos;a&apos;, &apos;A&apos;: &apos;A&apos;})
+print od1.keys()
+# [&apos;1&apos;, &apos;a&apos;, &apos;b&apos;, &apos;A&apos;]
+
+od2 = OrderedDict([(&apos;b&apos;, &apos;bc&apos;), (&apos;1&apos;, 2), (&apos;a&apos;, &apos;a&apos;), (&apos;A&apos;, &apos;A&apos;)])
+print od2.keys()
+# [&apos;b&apos;, &apos;1&apos;, &apos;a&apos;, &apos;A&apos;]
+
+od3 = {&apos;b&apos;: &apos;bc&apos;, &apos;1&apos;: 2, &apos;a&apos;: &apos;a&apos;, &apos;A&apos;: &apos;A&apos;}
+print od3.keys()
+# [&apos;1&apos;, &apos;a&apos;, &apos;b&apos;, &apos;A&apos;]
+
+# 读取json串时保持原有顺序
+import json  
+from collections import OrderedDict  
+metadata = json.loads(text, object_pairs_hook=OrderedDict);  
+
+# 使用OrderedDict生成新按照key排序的dict
+OrderedDict(sorted(d.items(), key=lambda t: t[0]))
+OrderedDict([(&apos;apple&apos;, 4), (&apos;banana&apos;, 3), (&apos;orange&apos;, 2), (&apos;pear&apos;, 1)])
+</code></pre></li>
 <li><p>namedtuple</p>
 <blockquote>
 <p>namedtuple能够用来创建类似于tuple的数据类型，除了能够用索引来访问数据，能够迭代，更能够方便的通过属性名来访问数据。<br>在python中，传统的tuple类似于数组，只能通过下标来访问各个元素，我们还需要注释每个下标代表什么数据。通过使用namedtuple，每个元素有了自己的名字，类似于C语言中的struct，这样数据的意义就可以一目了然了。<br>nametuple用起来像一个class的实例，也像list，也像是dict，但需要事先声明像类一样，后面用法就相当于实例的使用，又好像是dict，还可以用下标的方式list那样去使用。<br>当然，声明namedtuple是非常简单方便的            </p>
 </blockquote>
-<p> “””Returns a new subclass of tuple with named fields.<br>  Point = namedtuple(‘Point’, [‘x’, ‘y’]) # 声明，创建一个类<br>  Point.<strong>doc</strong>                   # docstring for the new class<br> ‘Point(x, y)’<br>  p = Point(11, y=22)             # instantiate with positional args or keywords ,实例化<br>  p[0] + p[1]                     # indexable like a plain tuple,用list下标方式使用<br> 33<br>  x, y = p                        # unpack like a regular tuple 赋值<br>  x, y<br> (11, 22)<br>  p.x + p.y                       # fields also accessible by name 像实例属性那样使用<br> 33<br>  d = p._asdict()                 # convert to a dictionary  像dict那样使用，注意要使用”_asdict”<br>  d[‘x’]<br> 11<br>  Point(**d)                      # convert from a dictionary  从dict导入<br> Point(x=11, y=22)<br>  p._replace(x=100)               # _replace() is like str.replace() but targets named fields 重新赋值，注意要使用”_replace”方法<br> Point(x=100, y=22)<br> “””</p>
-</li>
+<pre><code>&quot;&quot;&quot;Returns a new subclass of tuple with named fields.
+Point = namedtuple(&apos;Point&apos;, [&apos;x&apos;, &apos;y&apos;]) # 声明，创建一个类
+Point.__doc__                   # docstring for the new class
+&apos;Point(x, y)&apos;
+p = Point(11, y=22)             # instantiate with positional args or keywords ,实例化
+p[0] + p[1]                     # indexable like a plain tuple,用list下标方式使用
+33
+x, y = p                        # unpack like a regular tuple 赋值
+x, y
+(11, 22)
+p.x + p.y                       # fields also accessible by name 像实例属性那样使用
+33
+d = p._asdict()                 # convert to a dictionary  像dict那样使用，注意要使用&quot;_asdict&quot;
+d[&apos;x&apos;]
+11
+Point(**d)                      # convert from a dictionary  从dict导入
+Point(x=11, y=22)
+p._replace(x=100)               # _replace() is like str.replace() but targets named fields 重新赋值，注意要使用&quot;_replace&quot;方法
+Point(x=100, y=22)
+&quot;&quot;&quot;
+</code></pre></li>
 </ol>
 <hr>
 <h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><blockquote>

@@ -360,45 +360,43 @@
 <li><p>Counter()</p>
 <blockquote>
 <p>‘’’Dict subclass for counting hashable items.  Sometimes called a bag<br> or multiset.  Elements are stored as dictionary keys and their counts<br> are stored as dictionary values.<br>是dict的子类，可以计算可哈希item的数量，Elements被保存成字典的key和他们数量的values</p>
-<blockquote>
-<blockquote>
-<p>c = Counter(‘abcdeabcdabcaba’)  # count elements from a string,计算字符串的出现的数值</p>
-<p>c.most_common(3)                # three most common elements,表示出现最多的3个</p>
-<pre><code>[(&apos;a&apos;, 5), (&apos;b&apos;, 4), (&apos;c&apos;, 3)]
-.&gt;&gt;&gt; sorted(c)                       # list all unique elements，用list去保存其唯一的值
+</blockquote>
+<pre><code> c = Counter(&apos;abcdeabcdabcaba&apos;)  # count elements from a string,计算字符串的出现的数值
+
+ c.most_common(3)                # three most common elements,表示出现最多的3个
+[(&apos;a&apos;, 5), (&apos;b&apos;, 4), (&apos;c&apos;, 3)]
+. sorted(c)                       # list all unique elements，用list去保存其唯一的值
 [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]
-.&gt;&gt;&gt; &apos;&apos;.join(sorted(c.elements()))   # list elements with repetitions,按出现次数及其位置重新生成字符串
+. &apos;&apos;.join(sorted(c.elements()))   # list elements with repetitions,按出现次数及其位置重新生成字符串
 &apos;aaaaabbbbcccdde&apos;
-.&gt;&gt;&gt; sum(c.values())                 # total of all counts,计算其总数
+. sum(c.values())                 # total of all counts,计算其总数
 15
-</code></pre></blockquote>
-</blockquote>
-</blockquote>
-<pre><code>.&gt;&gt;&gt; c[&apos;a&apos;]                          # count of letter &apos;a&apos;,获取其中的key出现的次数
+
+. c[&apos;a&apos;]                          # count of letter &apos;a&apos;,获取其中的key出现的次数
 5
-.&gt;&gt;&gt; for elem in &apos;shazam&apos;:           # update counts from an iterable
+. for elem in &apos;shazam&apos;:           # update counts from an iterable
 ...     c[elem] += 1                # by adding 1 to each element&apos;s count，对其出现的key的values都加1
-.&gt;&gt;&gt; c[&apos;a&apos;]                          # now there are seven &apos;a&apos;
+. c[&apos;a&apos;]                          # now there are seven &apos;a&apos;
 7
-.&gt;&gt;&gt; del c[&apos;b&apos;]                      # remove all &apos;b&apos;
-.&gt;&gt;&gt; c[&apos;b&apos;]                          # now there are zero &apos;b&apos;
+. del c[&apos;b&apos;]                      # remove all &apos;b&apos;
+. c[&apos;b&apos;]                          # now there are zero &apos;b&apos;
 0
 
-.&gt;&gt;&gt; d = Counter(&apos;simsalabim&apos;)       # make another counter
-.&gt;&gt;&gt; c.update(d)                     # add in the second counter，把其他字符串的相加都一起，可以就单独计算后的合并
-.&gt;&gt;&gt; c[&apos;a&apos;]                          # now there are nine &apos;a&apos;
+. d = Counter(&apos;simsalabim&apos;)       # make another counter
+. c.update(d)                     # add in the second counter，把其他字符串的相加都一起，可以就单独计算后的合并
+. c[&apos;a&apos;]                          # now there are nine &apos;a&apos;
 9
 
-.&gt;&gt;&gt; c.clear()                       # empty the counter，清空
-.&gt;&gt;&gt; c
+. c.clear()                       # empty the counter，清空
+. c
 Counter()
 
 Note:  If a count is set to zero or reduced to zero, it will remain
 in the counter until the entry is deleted or the counter is cleared:
 
-.&gt;&gt;&gt; c = Counter(&apos;aaabbc&apos;)
-.&gt;&gt;&gt; c[&apos;b&apos;] -= 2                     # reduce the count of &apos;b&apos; by two
-.&gt;&gt;&gt; c.most_common()                 # &apos;b&apos; is still in, but its count is zero
+. c = Counter(&apos;aaabbc&apos;)
+. c[&apos;b&apos;] -= 2                     # reduce the count of &apos;b&apos; by two
+. c.most_common()                 # &apos;b&apos; is still in, but its count is zero
 [(&apos;a&apos;, 3), (&apos;c&apos;, 1), (&apos;b&apos;, 0)]
 </code></pre></li>
 <li><p>Deque</p>
@@ -532,14 +530,7 @@ print d
 <blockquote>
 <p>namedtuple能够用来创建类似于tuple的数据类型，除了能够用索引来访问数据，能够迭代，更能够方便的通过属性名来访问数据。<br>在python中，传统的tuple类似于数组，只能通过下标来访问各个元素，我们还需要注释每个下标代表什么数据。通过使用namedtuple，每个元素有了自己的名字，类似于C语言中的struct，这样数据的意义就可以一目了然了。<br>nametuple用起来像一个class的实例，也像list，也像是dict，但需要事先声明像类一样，后面用法就相当于实例的使用，又好像是dict，还可以用下标的方式list那样去使用。<br>当然，声明namedtuple是非常简单方便的            </p>
 </blockquote>
-<p> “””Returns a new subclass of tuple with named fields.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>Point = namedtuple(‘Point’, [‘x’, ‘y’]) # 声明，创建一个类<br>Point.<strong>doc</strong>                   # docstring for the new class<br> ‘Point(x, y)’<br>p = Point(11, y=22)             # instantiate with positional args or keywords ,实例化<br>p[0] + p[1]                     # indexable like a plain tuple,用list下标方式使用<br> 33<br>x, y = p                        # unpack like a regular tuple 赋值<br>x, y<br> (11, 22)<br>p.x + p.y                       # fields also accessible by name 像实例属性那样使用<br> 33<br>d = p._asdict()                 # convert to a dictionary  像dict那样使用，注意要使用”_asdict”<br>d[‘x’]<br> 11<br>Point(**d)                      # convert from a dictionary  从dict导入<br> Point(x=11, y=22)<br>p._replace(x=100)               # _replace() is like str.replace() but targets named fields 重新赋值，注意要使用”_replace”方法<br> Point(x=100, y=22)<br> “””</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<p> “””Returns a new subclass of tuple with named fields.<br>  Point = namedtuple(‘Point’, [‘x’, ‘y’]) # 声明，创建一个类<br>  Point.<strong>doc</strong>                   # docstring for the new class<br> ‘Point(x, y)’<br>  p = Point(11, y=22)             # instantiate with positional args or keywords ,实例化<br>  p[0] + p[1]                     # indexable like a plain tuple,用list下标方式使用<br> 33<br>  x, y = p                        # unpack like a regular tuple 赋值<br>  x, y<br> (11, 22)<br>  p.x + p.y                       # fields also accessible by name 像实例属性那样使用<br> 33<br>  d = p._asdict()                 # convert to a dictionary  像dict那样使用，注意要使用”_asdict”<br>  d[‘x’]<br> 11<br>  Point(**d)                      # convert from a dictionary  从dict导入<br> Point(x=11, y=22)<br>  p._replace(x=100)               # _replace() is like str.replace() but targets named fields 重新赋值，注意要使用”_replace”方法<br> Point(x=100, y=22)<br> “””</p>
 </li>
 </ol>
 <hr>
@@ -596,7 +587,7 @@ if __name__==&apos;__main__&apos;:
     print n.timeit() # 4.34367196717
 </code></pre><h2 id="Heapq"><a href="#Heapq" class="headerlink" title="Heapq"></a>Heapq</h2><h3 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h3><p><a href="http://www.cnblogs.com/JVxie/p/4859889.html" target="_blank" rel="external">堆的基本概念及其操作</a></p>
 <blockquote>
-<p>堆是一种特殊的树形数据结构，每个节点都有一个值，通常我们所说的堆的数据结构指的是二叉树。<br>堆的特点是根节点的值最大（或者最小），而且根节点的两个孩子也能与孩子节点组成子树，亦然称之为堆。<br>堆分为两种，大根堆和小根堆是一颗每一个节点的键值都不小于（大于）其孩子节点的键值的树。<br>无论是大根堆还是小根堆（前提是二叉堆）都可以看成是一颗完全二叉树。下面以图的形式直观感受一下:<br><img src="http://ok9ixm52w.bkt.clouddn.com/830203241171405010.jpg" alt=""><br>heapq模块使用一个用堆实现的优先级队列。堆是一种简单的有序列表，并且置入了堆的相关规则。<br>堆是一种树形的数据结构，树上的子节点与父节点之间存在顺序关系。二叉堆(binary heap)能够用一个经过组织的列表或数组结构来标识，在这种结构中，元素N的子节点的序号为2<em>N+1和2</em>N+2(下标始于0)。简单来说，这个模块中的所有函数都假设序列是有序的，所以序列中的第一个元素(seq[0])是最小的，序列的其他部分构成一个二叉树，并且seq[i]节点的子节点分别为seq[2<em>i+1]以及seq[2</em>i+2]。当对序列进行修改时，相关函数总是确保子节点大于等于父节点<br>操作时间在于O(1)-O(logn)<br>堆作为数据结构在内存和二级缓存中充当了重要的角色,优先队列</p>
+<p>堆是一种特殊的树形数据结构，每个节点都有一个值，通常我们所说的堆的数据结构指的是二叉树。<br>堆的特点是根节点的值最大（或者最小），而且根节点的两个孩子也能与孩子节点组成子树，亦然称之为堆。<br>堆分为两种，大根堆和小根堆是一颗每一个节点的键值都不小于（大于）其孩子节点的键值的树。<br>无论是大根堆还是小根堆（前提是二叉堆）都可以看成是一颗完全二叉树。下面以图的形式直观感受一下:<br><img src="http://ok9ixm52w.bkt.clouddn.com/1488882579345_10.png" alt=""><br>heapq模块使用一个用堆实现的优先级队列。堆是一种简单的有序列表，并且置入了堆的相关规则。<br>堆是一种树形的数据结构，树上的子节点与父节点之间存在顺序关系。二叉堆(binary heap)能够用一个经过组织的列表或数组结构来标识，在这种结构中，元素N的子节点的序号为2<em>N+1和2</em>N+2(下标始于0)。简单来说，这个模块中的所有函数都假设序列是有序的，所以序列中的第一个元素(seq[0])是最小的，序列的其他部分构成一个二叉树，并且seq[i]节点的子节点分别为seq[2<em>i+1]以及seq[2</em>i+2]。当对序列进行修改时，相关函数总是确保子节点大于等于父节点<br>操作时间在于O(1)-O(logn)<br>堆作为数据结构在内存和二级缓存中充当了重要的角色,优先队列</p>
 </blockquote>
 <pre><code>Usage:
 
@@ -731,8 +722,8 @@ print a # [(0, 100), (150, 220), (250, 400), (399, 450), (500, 1000), (550, 1200
 <p>weakref模块能够帮助我们创建Python引用，却不会阻止对象的销毁操作，<br>对象的非永久引用</p>
 </blockquote>
 <p>在开始之前，我们需要明白什么是strong reference。<br>strong reference是一个对对象的引用次数、生命周期以及销毁时机产生影响的指针。<br>strong reference如你所见，就是当你将一个对象赋值给一个变量的时候产生的：</p>
-<pre><code>&gt;&gt;&gt; a = [1,2,3]
-&gt;&gt;&gt; b = a
+<pre><code> a = [1,2,3]
+ b = a
 
 # 在这种情况下，这个列表有两个strong reference，分别是a和b。在这两个引用都被释放之前，这个list不会被销毁
 
@@ -760,37 +751,37 @@ del b # destroyed
 # 你可以使用weakref.ref函数来创建对象的weak reference。这个函数调用需要将一个strong
 reference作为第一个参数传给函数，并且返回一个weak reference。
 
-&gt;&gt;&gt; import weakref
-&gt;&gt;&gt; a = Foo()
+ import weakref
+ a = Foo()
 created
-&gt;&gt;&gt; b = weakref.ref(a)
-&gt;&gt;&gt; b
+ b = weakref.ref(a)
+ b
 
 # 一个临时的strong reference可以从weak reference中创建，即是下例中的b()：
-&gt;&gt;&gt; a == b() 
+ a == b() 
 True
-&gt;&gt;&gt; b().show()
+ b().show()
 None
 
 # 请注意当我们删除strong reference的时候，对象将立即被销毁。
 
-&gt;&gt;&gt; del a
+ del a
 destroyed
 
 # 如果试图在对象被摧毁之后通过weak reference使用对象，则会返回None：
-&gt;&gt;&gt; b() is None
+ b() is None
 True
 
 # 若是使用weakref.proxy，就能提供相对于weakref.ref更透明的可选操作。同样是使用一个strong reference作为第一个参数并且返回一个weak reference，proxy更像是一个strong reference，但当对象不存在时会抛出异常。
-&gt;&gt;&gt; a = Foo()
+ a = Foo()
 created
-&gt;&gt;&gt; b = weakref.proxy(a)
-&gt;&gt;&gt; b.store(&apos;fish&apos;)
-&gt;&gt;&gt; b.show()
+ b = weakref.proxy(a)
+ b.store(&apos;fish&apos;)
+ b.show()
 fish
-&gt;&gt;&gt; del a
+ del a
 destroyed
-&gt;&gt;&gt; b.show()
+ b.show()
 Traceback (most recent call last):
   File &quot;&quot;, line 1, in ?
 ReferenceError: weakly-referenced object no longer exists

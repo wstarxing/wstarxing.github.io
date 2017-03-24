@@ -101,7 +101,7 @@ python基本的数据结构有list,dict,set等，足够平常的使用，但在�
 python基本的数据结构有list,dict,set等，足够平常的使用，但在实现一些比较复杂的逻辑时，我们需要设计更好的数据结构去完成任务，此时我们需要去参考是否有更好的已经存在的数据结构，这样我们可以高效利用而不用浪费功夫去重复造轮子。这些数据结构都是继承了最基本的数据结构，在这之上去构造一些新的属性和方法去丰富数据结构的功能。下面就是一些pyt">
 <meta property="og:image" content="http://ok9ixm52w.bkt.clouddn.com/1488882579345_10.png">
 <meta property="og:image" content="http://ok9ixm52w.bkt.clouddn.com/830203241171405010.jpg">
-<meta property="og:updated_time" content="2017-03-24T03:42:31.854Z">
+<meta property="og:updated_time" content="2017-03-24T04:06:01.105Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python--data">
 <meta name="twitter:description" content="Python中的高级数据结构参考url
@@ -367,46 +367,51 @@ python基本的数据结构有list,dict,set等，足够平常的使用，但在�
 <blockquote>
 <p>‘’’Dict subclass for counting hashable items.  Sometimes called a bag<br> or multiset.  Elements are stored as dictionary keys and their counts<br> are stored as dictionary values.<br>是dict的子类，可以计算可哈希item的数量，Elements被保存成字典的key和他们数量的values</p>
 </blockquote>
-<pre><code> c = Counter(&apos;abcdeabcdabcaba&apos;)  # count elements from a string,计算字符串的出现的数值
+<pre><code> c = Counter(&apos;abcdeabcdabcaba&apos;)  
+ # count elements from a string,计算字符串的出现的数值
 
- c.most_common(3)                # three most common elements,表示出现最多的3个
+ c.most_common(3)                
+ # three most common elements,表示出现最多的3个
 [(&apos;a&apos;, 5), (&apos;b&apos;, 4), (&apos;c&apos;, 3)]
-. sorted(c)                       # list all unique elements，用list去保存其唯一的值
+sorted(c)                       
+# list all unique elements，用list去保存其唯一的值
 [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;]
-. &apos;&apos;.join(sorted(c.elements()))   # list elements with repetitions,按出现次数及其位置重新生成字符串
+&apos;&apos;.join(sorted(c.elements()))   
+# list elements with repetitions,按出现次数及其位置重新生成字符串
 &apos;aaaaabbbbcccdde&apos;
-. sum(c.values())                 # total of all counts,计算其总数
-15
+sum(c.values())                 
+# total of all counts,计算其总数
 
-. c[&apos;a&apos;]                          # count of letter &apos;a&apos;,获取其中的key出现的次数
-5
-. for elem in &apos;shazam&apos;:           # update counts from an iterable
-...     c[elem] += 1                # by adding 1 to each element&apos;s count，对其出现的key的values都加1
-. c[&apos;a&apos;]                          # now there are seven &apos;a&apos;
-7
-. del c[&apos;b&apos;]                      # remove all &apos;b&apos;
-. c[&apos;b&apos;]                          # now there are zero &apos;b&apos;
-0
+c[&apos;a&apos;]                          
+# count of letter &apos;a&apos;,获取其中的key出现的次数
 
-. d = Counter(&apos;simsalabim&apos;)       # make another counter
-. c.update(d)                     # add in the second counter，把其他字符串的相加都一起，可以就单独计算后的合并
-. c[&apos;a&apos;]                          # now there are nine &apos;a&apos;
+for elem in &apos;shazam&apos;:           # update counts from an iterable
+     c[elem] += 1      
+# by adding 1 to each element&apos;s count，对其出现的key的values都加1
+c[&apos;a&apos;]                          # now there are seven &apos;a&apos;
+
+del c[&apos;b&apos;]                      # remove all &apos;b&apos;
+c[&apos;b&apos;]                          # now there are zero &apos;b&apos;
+</code></pre></li>
+</ol>
+<pre><code>d = Counter(&apos;simsalabim&apos;)       # make another counter
+c.update(d)                     
+# add in the second counter，把其他字符串的相加都一起，可以就单独计算后的合并
+c[&apos;a&apos;]                          # now there are nine &apos;a&apos;
 9
 
-. c.clear()                       # empty the counter，清空
-. c
+c.clear()                       # empty the counter，清空
 Counter()
 
 Note:  If a count is set to zero or reduced to zero, it will remain
 in the counter until the entry is deleted or the counter is cleared:
 
-. c = Counter(&apos;aaabbc&apos;)
-. c[&apos;b&apos;] -= 2                     # reduce the count of &apos;b&apos; by two
-. c.most_common()                 # &apos;b&apos; is still in, but its count is zero
+c = Counter(&apos;aaabbc&apos;)
+c[&apos;b&apos;] -= 2                     # reduce the count of &apos;b&apos; by two
+c.most_common()                 # &apos;b&apos; is still in, but its count is zero
 [(&apos;a&apos;, 3), (&apos;c&apos;, 1), (&apos;b&apos;, 0)]
-</code></pre></li>
-<li><p>Deque</p>
-<blockquote>
+</code></pre><ol>
+<li>Deque<blockquote>
 <p>Deque是一种由队列结构扩展而来的双端队列(double-ended queue)，队列元素能够在队列两端添加或删除。因此它还被称为头尾连接列表(head-tail linked list)，尽管叫这个名字的还有另一个特殊的数据结构实现。<br>Deque支持线程安全的，经过优化的append和pop操作，在队列两端的相关操作都能够达到近乎O(1)的时间复杂度。虽然list也支持类似的操作，但是它是对定长列表的操作表现很不错，而当遇到pop(0)和insert(0,v)这样既改变了列表的长度又改变其元素位置的操作时，其复杂度就变为O(n)了。</p>
 </blockquote>
 </li>

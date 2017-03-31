@@ -270,6 +270,202 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/03/31/python-itertools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangxunxing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ok9ixm52w.bkt.clouddn.com/17-1F2211F427.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wang_xun_xing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/31/python-itertools/" itemprop="url">
+                  python-itertools
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T15:30:16+08:00">
+                2017-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="python-itertools"><a href="#python-itertools" class="headerlink" title="python-itertools"></a>python-itertools</h1><p><a href="https://docs.python.org/2/library/itertools.html" target="_blank" rel="external">迭代器doc</a><br>Functional tools for creating and using iterators.</p>
+<ol>
+<li><p>Infinite iterators:</p>
+<pre><code>count([n]) --&gt; n, n+1, n+2, ...
+# 从n开始加，
+# 可以设定值count(2,3) 2+3，5+3
+
+cycle(p) --&gt; p0, p1, ... plast, p0, p1, ...
+# 重复p中的值
+# cycle(&apos;123&apos;), 1,2,3,1,2,3...
+
+repeat(elem [,n]) --&gt; elem, elem, elem, ... endlessly or up to n times
+# 重复elem n次
+# repeat(1,10)
+</code></pre></li>
+<li><p>Iterators terminating on the shortest input sequence:</p>
+<pre><code>chain(p, q, ...) --&gt; p0, p1, ... plast, q0, q1, ... 
+# 连接两个循环
+# chain([1,2,3],[4,5,6])
+
+compress(data, selectors) --&gt; (d[0] if s[0]), (d[1] if s[1]), ...
+# 根据selectors的值真假来选择中data的值
+# compress([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;],[1,0,0,1]) --&gt; &apos;a&apos;,&apos;d&apos;
+
+dropwhile(pred, seq) --&gt; seq[n], seq[n+1], starting when pred fails
+# 挑出false后面的所有值
+# dropwhile(lambda x: x &lt; 5, [1, 3, 6, 7, 1]) --&gt;[6,7,1]
+
+groupby(iterable[, keyfunc]) --&gt; sub-iterators grouped by value of keyfunc(v)
+# 把iterable的值根据key来分组，对象需先sorted()排序
+def a(b):
+    if b &gt; 0:
+        return &apos;a&apos;
+    else:
+        return &apos;b&apos;
+
+c = [1,-1,0]
+c = sorted(c, key=a)
+
+for k,v in  groupby(c,key=a):
+    print k,list(v)
+--&gt; a [1],
+--&gt; b [-1, 0]
+
+ifilter(pred, seq) --&gt; elements of seq where pred(elem) is True
+
+ifilterfalse(pred, seq) --&gt; elements of seq where pred(elem) is False
+
+islice(seq, [start,] stop [, step]) --&gt; elements from
+       seq[start:stop:step]
+
+imap(fun, p, q, ...) --&gt; fun(p0, q0), fun(p1, q1), ...
+
+starmap(fun, seq) --&gt; fun(*seq[0]), fun(*seq[1]), ...
+
+tee(it, n=2) --&gt; (it1, it2 , ... itn) splits one iterator into n
+
+takewhile(pred, seq) --&gt; seq[0], seq[1], until pred fails
+# 当函数返回True时，收集元素到循环器。一旦函数返回False，则停止
+
+izip(p, q, ...) --&gt; (p[0], q[0]), (p[1], q[1]), ... 
+# 类似于zip()函数，只是返回的是一个循环器。
+
+izip_longest(p, q, ...) --&gt; (p[0], q[0]), (p[1], q[1]), ... 
+# 可以更多
+</code></pre></li>
+<li><p>Combinatoric generators:</p>
+<pre><code>product(p, q, ... [repeat=1]) --&gt; cartesian product
+permutations(p[, r])
+# 排列组合，有顺序分别
+combinations(p, r)
+# 排列组合，无顺序分别
+combinations_with_replacement(p, r)
+# 可重复出现
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/03/28/flask-signal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1597,7 +1793,7 @@ except Exception, ex:
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

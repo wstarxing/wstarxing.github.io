@@ -270,6 +270,192 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/04/05/flask-errorhandler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangxunxing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ok9ixm52w.bkt.clouddn.com/17-1F2211F427.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wang_xun_xing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/05/flask-errorhandler/" itemprop="url">
+                  flask-errorhandler
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-05T10:20:32+08:00">
+                2017-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="flask-errorhandler"><a href="#flask-errorhandler" class="headerlink" title="flask-errorhandler"></a>flask-errorhandler</h1><h2 id="官方doc"><a href="#官方doc" class="headerlink" title="官方doc"></a><a href="http://flask.pocoo.org/docs/0.11/api/#flask.Flask.errorhandler" target="_blank" rel="external">官方doc</a></h2><p>error_handler_spec = None<br>A dictionary of all registered error handlers. The key is None for error handlers active on the application, otherwise the key is the name of the blueprint. Each key points to another dictionary where the key is the status code of the http exception. The special key None points to a list of tuples where the first item is the class for the instance check and the second the error handler function.</p>
+<p>To register a error handler, use the errorhandler() decorator.</p>
+<p>errorhandler(code_or_exception)<br>A decorator that is used to register a function give a given error code.<br>Example:</p>
+<pre><code>@app.errorhandler(404)
+def page_not_found(error):
+    return &apos;This page does not exist&apos;, 404
+</code></pre><p>You can also register handlers for arbitrary exceptions:</p>
+<pre><code>@app.errorhandler(DatabaseError)
+def special_exception_handler(error):
+    return &apos;Database connection failed&apos;, 500
+</code></pre><p>You can also register a function as error handler without using the errorhandler() decorator. The following example is equivalent to the one above:</p>
+<pre><code>def page_not_found(error):
+    return &apos;This page does not exist&apos;, 404
+app.error_handler_spec[None][404] = page_not_found
+</code></pre><p>Setting error handlers via assignments to error_handler_spec however is discouraged as it requires fiddling with nested dictionaries and the special case for arbitrary exception types.</p>
+<p>The first None refers to the active blueprint. If the error handler should be application wide None shall be used.</p>
+<p>New in version 0.7: Use register_error_handler() instead of modifying error_handler_spec directly, for application wide error handlers.</p>
+<p>New in version 0.7: One can now additionally also register custom exception types that do not necessarily have to be a subclass of the HTTPException class.</p>
+<p>Parameters: code – the code as integer for the handler</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="蓝图中直接使用"><a href="#蓝图中直接使用" class="headerlink" title="蓝图中直接使用"></a>蓝图中直接使用</h3><p>在request中出现了error导致中断，可以调用errorhandler去执行相关的函数，返回需要告知的信息，可以以预选定义错误代码，或定义的Exception触发<br>下面的列子是在蓝图中的错误才会触发</p>
+<pre><code>@main.errorhandler(404)
+def error_404(error):
+    &quot;&quot;&quot;这个handler可以catch住所有abort(404)以及找不到对应router的处理请求&quot;&quot;&quot;
+    response = dict(status=0, message=&quot;404 Not Found&quot;)
+    return jsonify(response), 404
+
+@main.errorhandler(Exception)
+def error_500(error):
+    &quot;&quot;&quot;这个handler可以catch住所有的abort(500)和raise exeception.&quot;&quot;&quot;
+    response = dict(status=0, message=&quot;500 Error&quot;)
+    return jsonify(response), 400
+
+class MyError(Exception):
+    &quot;&quot;&quot;自定义错误类&quot;&quot;&quot;
+    pass
+
+@main.errorhandler(MyError)
+def MyErrorHandle(error):
+    response = dict(status=0, message=&quot;400 Error&quot;)
+    return jsonify(response), 400
+</code></pre><h3 id="注册全局的错误处理"><a href="#注册全局的错误处理" class="headerlink" title="注册全局的错误处理"></a>注册全局的错误处理</h3><p>这是全局的错误</p>
+<pre><code>@main.app_errorhandler(404)
+def error_404(error):
+    response = dict(status=0, message=&quot;404 Not Found&quot;)
+    return jsonify(response), 404
+</code></pre><h3 id="出现错误的request例子"><a href="#出现错误的request例子" class="headerlink" title="出现错误的request例子"></a>出现错误的request例子</h3><p>在admin_permission,如果没有admin的权限则出错，调用error_404去返回<br>在try中，data没有data值则raise 上面定义的MyError</p>
+<pre><code>@main.route(&apos;/test&apos;, methods=[&apos;POST&apos;])
+@login_required
+@admin_permission.require(http_exception=404)
+def pending_report(report_id, method):
+    data = request.get_json(force=True)
+    try:
+        data = data[&apos;data&apos;]
+    except Exception:
+        raise MyError(&apos;data have no data&apos;)
+    return jsonify()
+</code></pre><h2 id="python–Exception"><a href="#python–Exception" class="headerlink" title="python–Exception"></a>python–Exception</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>只要继承了Exception就实现了异常类</p>
+<pre><code>class DatabException(Exception):  
+    def __init__(self,err=&apos;数据错误&apos;):  
+        Exception.__init__(self,err)  
+</code></pre><h3 id="raise错误"><a href="#raise错误" class="headerlink" title="raise错误"></a>raise错误</h3><p>在try…except中raise</p>
+<pre><code>try:
+    data = data[&apos;data&apos;]
+except Exception, e:
+    print e
+    raise DatabException()
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/03/31/python-itertools/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1793,7 +1979,7 @@ except Exception, ex:
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -270,6 +270,166 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/04/07/mongodb-aggregate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangxunxing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ok9ixm52w.bkt.clouddn.com/17-1F2211F427.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wang_xun_xing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/07/mongodb-aggregate/" itemprop="url">
+                  mongodb-aggregate
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-07T15:26:22+08:00">
+                2017-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="mongodb-aggregate"><a href="#mongodb-aggregate" class="headerlink" title="mongodb-aggregate"></a>mongodb-aggregate</h1><p>聚合作用相当于做一些统计，在做统计前可以对其进行一定的处理，把结果一步一步</p>
+<h2 id="聚合的简单统计"><a href="#聚合的简单统计" class="headerlink" title="聚合的简单统计"></a>聚合的简单统计</h2><h3 id="group"><a href="#group" class="headerlink" title="$group"></a>$group</h3><ul>
+<li>\$sum，计算总和。</li>
+<li>\$avg，计算平均值</li>
+<li>\$min，获取集合中所有文档对应值得最小值。</li>
+<li>\$max，获取集合中所有文档对应值得最大值。</li>
+<li>\$push ，在结果文档中插入值到一个数组中。</li>
+<li>\$addToSet ，在结果文档中插入值到一个数组中，但不创建副本</li>
+<li>\$first，根据资源文档的排序获取第一个文档数据。</li>
+<li>\$last， 根据资源文档的排序获取最后一个文档数据</li>
+</ul>
+<pre><code>   for i in item.aggregate([{&apos;$group&apos;: {&apos;_id&apos;: &apos;$reportID&apos;,
+                             &apos;num1&apos;: {&apos;$sum&apos;: 1},
+                             &apos;avg&apos;: {&apos;$avg&apos;: &apos;$itemVer&apos;},
+                             &apos;max&apos;: {&apos;$max&apos;: &apos;$itemVer&apos;},
+                             &apos;min&apos;: {&apos;$min&apos;: &apos;$itemVer&apos;},
+                             &apos;first_url&apos;: {&apos;$first&apos;: &quot;$itemVer&quot;},
+                             &apos;last_url&apos;: {&apos;$last&apos;: &quot;$itemVer&quot;},
+
+                                    }}]):
+       print i
+
+\$push，\$addToSet 就是往group得出的结果中增加值
+</code></pre><h2 id="使用管道处理"><a href="#使用管道处理" class="headerlink" title="使用管道处理"></a>使用管道处理</h2><h3 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h3><ul>
+<li>\$project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。</li>
+<li>\$match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。</li>
+<li>\$limit：用来限制MongoDB聚合管道返回的文档数。</li>
+<li>\$skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。</li>
+<li>\$unwind：将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。</li>
+<li>\$group：将集合中的文档分组，可用于统计结果。</li>
+<li>\$sort：将输入文档排序后输出。</li>
+<li>\$geoNear：输出接近某一地理位置的有序文档。</li>
+</ul>
+<pre><code>for i in test.aggregate([{&apos;$unwind&apos;: &apos;$imgSrc&apos;},
+                         {&apos;$match&apos;:{&apos;imgSrc&apos;:&apos;abc&apos;}},
+                         {&apos;$limit&apos;: 10},
+                         {&apos;$skip&apos;: 5},
+                         {&apos;$group&apos;: {&apos;_id&apos;: &apos;$reportID&apos;,&apos;num1&apos;: {&apos;$sum&apos;: 1}}},
+                         ]):
+    print i
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/04/05/flask-errorhandler/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1979,7 +2139,7 @@ except Exception, ex:
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1992,7 +2152,7 @@ except Exception, ex:
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

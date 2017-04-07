@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="flask," />
+  <meta name="keywords" content="mongodb," />
 
 
 
@@ -87,40 +87,37 @@
 
 
 
-<meta name="description" content="flask-signal信号机制-doc
-signal
-“信号允许特定的发送端通知订阅者发生了什么”
-当需要启动某函数去执行操作，就可以发送信号
-稍微复杂的情况可参考上面的官方文档
-
-简单使用定义信号from blinker import Namespace
-test = Namespace() # 实际上,signal就是Namespace中的一个函数.
-# Namespace继承dict.调用">
+<meta name="description" content="mongodb-aggregate聚合作用相当于做一些统计，在做统计前可以对其进行一定的处理，把结果一步一步
+聚合的简单统计$group
+\$sum，计算总和。
+\$avg，计算平均值
+\$min，获取集合中所有文档对应值得最小值。
+\$max，获取集合中所有文档对应值得最大值。
+\$push ，在结果文档中插入值到一个数组中。
+\$addToSet ，在结果文档中插入值到一个数组中，但不创建副本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="flask-signal">
-<meta property="og:url" content="http://go.wangxx.win/2017/03/28/flask-signal/index.html">
+<meta property="og:title" content="mongodb-aggregate">
+<meta property="og:url" content="http://go.wangxx.win/2017/04/07/mongodb-aggregate/index.html">
 <meta property="og:site_name" content="wang_xun_xing">
-<meta property="og:description" content="flask-signal信号机制-doc
-signal
-“信号允许特定的发送端通知订阅者发生了什么”
-当需要启动某函数去执行操作，就可以发送信号
-稍微复杂的情况可参考上面的官方文档
-
-简单使用定义信号from blinker import Namespace
-test = Namespace() # 实际上,signal就是Namespace中的一个函数.
-# Namespace继承dict.调用">
-<meta property="og:updated_time" content="2017-03-28T07:38:39.119Z">
+<meta property="og:description" content="mongodb-aggregate聚合作用相当于做一些统计，在做统计前可以对其进行一定的处理，把结果一步一步
+聚合的简单统计$group
+\$sum，计算总和。
+\$avg，计算平均值
+\$min，获取集合中所有文档对应值得最小值。
+\$max，获取集合中所有文档对应值得最大值。
+\$push ，在结果文档中插入值到一个数组中。
+\$addToSet ，在结果文档中插入值到一个数组中，但不创建副本">
+<meta property="og:updated_time" content="2017-04-07T07:26:44.323Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="flask-signal">
-<meta name="twitter:description" content="flask-signal信号机制-doc
-signal
-“信号允许特定的发送端通知订阅者发生了什么”
-当需要启动某函数去执行操作，就可以发送信号
-稍微复杂的情况可参考上面的官方文档
-
-简单使用定义信号from blinker import Namespace
-test = Namespace() # 实际上,signal就是Namespace中的一个函数.
-# Namespace继承dict.调用">
+<meta name="twitter:title" content="mongodb-aggregate">
+<meta name="twitter:description" content="mongodb-aggregate聚合作用相当于做一些统计，在做统计前可以对其进行一定的处理，把结果一步一步
+聚合的简单统计$group
+\$sum，计算总和。
+\$avg，计算平均值
+\$min，获取集合中所有文档对应值得最小值。
+\$max，获取集合中所有文档对应值得最大值。
+\$push ，在结果文档中插入值到一个数组中。
+\$addToSet ，在结果文档中插入值到一个数组中，但不创建副本">
 
 
 
@@ -148,13 +145,13 @@ test = Namespace() # 实际上,signal就是Namespace中的一个函数.
 
 
 
-  <link rel="canonical" href="http://go.wangxx.win/2017/03/28/flask-signal/"/>
+  <link rel="canonical" href="http://go.wangxx.win/2017/04/07/mongodb-aggregate/"/>
 
 
 
 
 
-  <title> flask-signal | wang_xun_xing </title>
+  <title> mongodb-aggregate | wang_xun_xing </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -293,7 +290,7 @@ test = Namespace() # 实际上,signal就是Namespace中的一个函数.
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/03/28/flask-signal/">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/04/07/mongodb-aggregate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangxunxing">
@@ -314,7 +311,7 @@ test = Namespace() # 实际上,signal就是Namespace中的一个函数.
             
             
               
-                flask-signal
+                mongodb-aggregate
               
             
           </h1>
@@ -329,8 +326,8 @@ test = Namespace() # 实际上,signal就是Namespace中的一个函数.
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T15:38:15+08:00">
-                2017-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-07T15:26:22+08:00">
+                2017-04-07
               </time>
             
 
@@ -365,69 +362,47 @@ test = Namespace() # 实际上,signal就是Namespace中的一个函数.
       
 
       
-        <h1 id="flask-signal"><a href="#flask-signal" class="headerlink" title="flask-signal"></a>flask-signal</h1><p><a href="http://docs.jinkan.org/docs/flask/signals.html" target="_blank" rel="external">信号机制-doc</a></p>
-<h2 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h2><ol>
-<li>“信号允许特定的发送端通知订阅者发生了什么”</li>
-<li>当需要启动某函数去执行操作，就可以发送信号</li>
-<li>稍微复杂的情况可参考上面的官方文档</li>
-</ol>
-<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><h3 id="定义信号"><a href="#定义信号" class="headerlink" title="定义信号"></a>定义信号</h3><pre><code>from blinker import Namespace
-test = Namespace() # 实际上,signal就是Namespace中的一个函数.
-# Namespace继承dict.调用signal函数就是返回与key对应的value.初次调用signal时会触发KeyError.
-test.signal = test.signal(&apos;name&apos;)
-</code></pre><h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><pre><code>@test.connect_via(current_app)
-def test_signal(current_app, args)
-    print args
+        <h1 id="mongodb-aggregate"><a href="#mongodb-aggregate" class="headerlink" title="mongodb-aggregate"></a>mongodb-aggregate</h1><p>聚合作用相当于做一些统计，在做统计前可以对其进行一定的处理，把结果一步一步</p>
+<h2 id="聚合的简单统计"><a href="#聚合的简单统计" class="headerlink" title="聚合的简单统计"></a>聚合的简单统计</h2><h3 id="group"><a href="#group" class="headerlink" title="$group"></a>$group</h3><ul>
+<li>\$sum，计算总和。</li>
+<li>\$avg，计算平均值</li>
+<li>\$min，获取集合中所有文档对应值得最小值。</li>
+<li>\$max，获取集合中所有文档对应值得最大值。</li>
+<li>\$push ，在结果文档中插入值到一个数组中。</li>
+<li>\$addToSet ，在结果文档中插入值到一个数组中，但不创建副本</li>
+<li>\$first，根据资源文档的排序获取第一个文档数据。</li>
+<li>\$last， 根据资源文档的排序获取最后一个文档数据</li>
+</ul>
+<pre><code>   for i in item.aggregate([{&apos;$group&apos;: {&apos;_id&apos;: &apos;$reportID&apos;,
+                             &apos;num1&apos;: {&apos;$sum&apos;: 1},
+                             &apos;avg&apos;: {&apos;$avg&apos;: &apos;$itemVer&apos;},
+                             &apos;max&apos;: {&apos;$max&apos;: &apos;$itemVer&apos;},
+                             &apos;min&apos;: {&apos;$min&apos;: &apos;$itemVer&apos;},
+                             &apos;first_url&apos;: {&apos;$first&apos;: &quot;$itemVer&quot;},
+                             &apos;last_url&apos;: {&apos;$last&apos;: &quot;$itemVer&quot;},
 
-test.send(current_app, args=&apos;test&apos;)
-</code></pre><h3 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h3><pre><code>test.connect(test_signal)
-def test_signal(args)
-    print args
+                                    }}]):
+       print i
 
-test.send(&apos;test&apos;)
-</code></pre><h3 id="两种方法区别"><a href="#两种方法区别" class="headerlink" title="两种方法区别"></a>两种方法区别</h3><p>装饰器可以带多个参数，但是要用名字传参<br>直接使用只有一个参数传入</p>
-<h2 id="其他列子–来源网络"><a href="#其他列子–来源网络" class="headerlink" title="其他列子–来源网络"></a>其他列子–来源网络</h2><h3 id="source-1"><a href="#source-1" class="headerlink" title="source.1"></a><a href="http://www.jianshu.com/p/5c7bcf1af955" target="_blank" rel="external">source.1</a></h3><pre><code>from blinker import signal
-
-def subscriber(sender):
-    print(&quot;Got a signal sent by %r&quot; % sender)
-
-ready = signal(&apos;ready&apos;)
-ready.connect(subscriber)
-
-class Processor:
-
-    def __init__(self, name):
-        self.name = name
-
-    def go(self):
-        ready = signal(&apos;ready&apos;)
-        ready.send(self)
-        print(&quot;Ready to Process...&quot;)
-        complete = signal(&apos;complete&apos;)
-        complete.send(self)
-
-    def __repr__(self):
-        return &apos;&lt;Processor %s&gt;&apos; % self.name
-
-Processor_1 = Processor(&apos;intel core i3&apos;)
-Processor_1.go()
-</code></pre><p>定义了ready这个信号，绑定到subscriber这个函数，然后定义了一个class，在这个class去使用了send去调用</p>
-<h2 id="flask内置的signals"><a href="#flask内置的signals" class="headerlink" title="flask内置的signals"></a>flask内置的signals</h2><pre><code>_signals = Namespace()
-
-template_rendered = _signals.signal(&apos;template-rendered&apos;)
-before_render_template = _signals.signal(&apos;before-render-template&apos;)
-request_started = _signals.signal(&apos;request-started&apos;)
-request_finished = _signals.signal(&apos;request-finished&apos;)
-request_tearing_down = _signals.signal(&apos;request-tearing-down&apos;)
-got_request_exception = _signals.signal(&apos;got-request-exception&apos;)
-appcontext_tearing_down = _signals.signal(&apos;appcontext-tearing-down&apos;)
-appcontext_pushed = _signals.signal(&apos;appcontext-pushed&apos;)
-appcontext_popped = _signals.signal(&apos;appcontext-popped&apos;)
-message_flashed = _signals.signal(&apos;message-flashed&apos;)
-</code></pre><p>看英文就能看懂对应的信号是用来干嘛的，使用对应装饰器就能使用</p>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><p>信号可以让你在一瞬间安全地订阅它们。例如，这些临时的订阅对测试很有帮助。使用信号时，不要让信号订阅者（接收者）发生异常，因为异常会造成程序中断。</p>
-<h2 id="延伸问题"><a href="#延伸问题" class="headerlink" title="延伸问题"></a>延伸问题</h2><h3 id="current-app-get-current-object-与-current-app区别"><a href="#current-app-get-current-object-与-current-app区别" class="headerlink" title="current_app._get_current_object() 与 current_app区别"></a>current_app._get_current_object() 与 current_app区别</h3><p><a href="https://segmentfault.com/q/1010000005865632" target="_blank" rel="external">相关答案1</a><br><a href="http://stackoverflow.com/questions/9946136/flask-blue-print-current-app" target="_blank" rel="external">相关答案2</a><br><a href="http://www.programcreek.com/python/example/81023/flask.current_app._get_current_object" target="_blank" rel="external">example</a><br>与线程有关，当在某个线程中，使用current_app是获取不到的</p>
-
+\$push，\$addToSet 就是往group得出的结果中增加值
+</code></pre><h2 id="使用管道处理"><a href="#使用管道处理" class="headerlink" title="使用管道处理"></a>使用管道处理</h2><h3 id="pipe"><a href="#pipe" class="headerlink" title="pipe"></a>pipe</h3><ul>
+<li>\$project：修改输入文档的结构。可以用来重命名、增加或删除域，也可以用于创建计算结果以及嵌套文档。</li>
+<li>\$match：用于过滤数据，只输出符合条件的文档。$match使用MongoDB的标准查询操作。</li>
+<li>\$limit：用来限制MongoDB聚合管道返回的文档数。</li>
+<li>\$skip：在聚合管道中跳过指定数量的文档，并返回余下的文档。</li>
+<li>\$unwind：将文档中的某一个数组类型字段拆分成多条，每条包含数组中的一个值。</li>
+<li>\$group：将集合中的文档分组，可用于统计结果。</li>
+<li>\$sort：将输入文档排序后输出。</li>
+<li>\$geoNear：输出接近某一地理位置的有序文档。</li>
+</ul>
+<pre><code>for i in test.aggregate([{&apos;$unwind&apos;: &apos;$imgSrc&apos;},
+                         {&apos;$match&apos;:{&apos;imgSrc&apos;:&apos;abc&apos;}},
+                         {&apos;$limit&apos;: 10},
+                         {&apos;$skip&apos;: 5},
+                         {&apos;$group&apos;: {&apos;_id&apos;: &apos;$reportID&apos;,&apos;num1&apos;: {&apos;$sum&apos;: 1}}},
+                         ]):
+    print i
+</code></pre>
       
     </div>
 
@@ -456,7 +431,7 @@ message_flashed = _signals.signal(&apos;message-flashed&apos;)
       
         <div class="post-tags">
           
-            <a href="/tags/flask/" rel="tag"># flask</a>
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
           
         </div>
       
@@ -469,8 +444,8 @@ message_flashed = _signals.signal(&apos;message-flashed&apos;)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/24/python-data/" rel="next" title="python--data">
-                <i class="fa fa-chevron-left"></i> python--data
+              <a href="/2017/04/05/flask-errorhandler/" rel="next" title="flask-errorhandler">
+                <i class="fa fa-chevron-left"></i> flask-errorhandler
               </a>
             
           </div>
@@ -478,10 +453,6 @@ message_flashed = _signals.signal(&apos;message-flashed&apos;)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/31/python-itertools/" rel="prev" title="python-itertools">
-                python-itertools <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -601,7 +572,7 @@ message_flashed = _signals.signal(&apos;message-flashed&apos;)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#flask-signal"><span class="nav-number">1.</span> <span class="nav-text">flask-signal</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#signal"><span class="nav-number">1.1.</span> <span class="nav-text">signal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单使用"><span class="nav-number">1.2.</span> <span class="nav-text">简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义信号"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">1.2.2.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接使用"><span class="nav-number">1.2.3.</span> <span class="nav-text">直接使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种方法区别"><span class="nav-number">1.2.4.</span> <span class="nav-text">两种方法区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他列子–来源网络"><span class="nav-number">1.3.</span> <span class="nav-text">其他列子–来源网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#source-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">source.1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flask内置的signals"><span class="nav-number">1.4.</span> <span class="nav-text">flask内置的signals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关问题"><span class="nav-number">1.5.</span> <span class="nav-text">相关问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸问题"><span class="nav-number">1.6.</span> <span class="nav-text">延伸问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#current-app-get-current-object-与-current-app区别"><span class="nav-number">1.6.1.</span> <span class="nav-text">current_app._get_current_object() 与 current_app区别</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mongodb-aggregate"><span class="nav-number">1.</span> <span class="nav-text">mongodb-aggregate</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合的简单统计"><span class="nav-number">1.1.</span> <span class="nav-text">聚合的简单统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#group"><span class="nav-number">1.1.1.</span> <span class="nav-text">$group</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用管道处理"><span class="nav-number">1.2.</span> <span class="nav-text">使用管道处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pipe"><span class="nav-number">1.2.1.</span> <span class="nav-text">pipe</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -270,6 +270,306 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/05/16/git-gitlab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangxunxing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ok9ixm52w.bkt.clouddn.com/17-1F2211F427.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wang_xun_xing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/16/git-gitlab/" itemprop="url">
+                  git- gitlab
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T15:14:53+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="gitlab"><a href="#gitlab" class="headerlink" title="gitlab"></a><a href="https://about.gitlab.com/gitlab-com/" target="_blank" rel="external">gitlab</a></h1><p>开源代码管理</p>
+<h2 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h2><p>方法1.<br><a href="https://about.gitlab.com/downloads/#ubuntu1604" target="_blank" rel="external">官方一键安装指导</a><br>一开始使用这种方式安装，结果出问题了，连不上数据库postgreal，半天没搞懂什么回事换了另一种方式<br>方法2.</p>
+<ol>
+<li><a href="https://bitnami.com/stack/gitlab" target="_blank" rel="external">bitnami-gitlab</a></li>
+<li><a href="https://bitnami.com/stack/gitlab/README.txt" target="_blank" rel="external">doc</a> </li>
+<li><p><a href="https://downloads.bitnami.com/files/stacks/gitlab/9.1.3-0/bitnami-gitlab-9.1.3-0-linux-x64-installer.run" target="_blank" rel="external">download</a></p>
+<p> wget <a href="https://downloads.bitnami.com/files/stacks/gitlab/9.1.3-0/bitnami-gitlab-9.1.3-0-linux-x64-installer.run" target="_blank" rel="external">https://downloads.bitnami.com/files/stacks/gitlab/9.1.3-0/bitnami-gitlab-9.1.3-0-linux-x64-installer.run</a><br> chmod 777 ./bitnami-gitlab-9.1.3-0-linux-x64-installer.run<br> gitlab-ctl start # 启动<br> gitlab-ctl reconfigure # 初始化</p>
+<h1 id="打开localhost可以看到gitlab网页"><a href="#打开localhost可以看到gitlab网页" class="headerlink" title="打开localhost可以看到gitlab网页"></a>打开localhost可以看到gitlab网页</h1><p> vi /etc/gitlab/gitlab.rb # 外网访问需修改</p>
+<pre><code>external_url &apos;http://106.14.80.243&apos;
+# nginx[&apos;redirect_http_to_https&apos;] 注释掉
+</code></pre></li>
+</ol>
+<p>接着 gitlab-ctl reconfigure</p>
+<h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><p>详情请看这位仁兄的</p>
+<ol>
+<li><a href="https://gitlab.com/xhang/gitlab" target="_blank" rel="external">gitlab</a><br>我采用其中的打补丁方式</li>
+<li><a href="https://github.com/marbleqi/gitlab-ce-zh" target="_blank" rel="external">替换</a></li>
+</ol>
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><p>简单一键备份<br>1.<a href="https://segmentfault.com/a/1190000002439923" target="_blank" rel="external">方法</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/05/16/git-gitolite/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangxunxing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ok9ixm52w.bkt.clouddn.com/17-1F2211F427.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wang_xun_xing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/16/git-gitolite/" itemprop="url">
+                  git-gitolite
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T15:14:40+08:00">
+                2017-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="git-gitolite"><a href="#git-gitolite" class="headerlink" title="git-gitolite"></a><a href="https://github.com/sitaramc/gitolite" target="_blank" rel="external">git-gitolite</a></h1><p>自建git的服务器，带有ssh-key控制的权限功能<br>优点：可以根据不同用户控制权限<br>缺点：需手动添加ssh-key</p>
+<h2 id="steps-to-install"><a href="#steps-to-install" class="headerlink" title="steps to install"></a>steps to install</h2><ol>
+<li>apt-get install git </li>
+<li>useradd git</li>
+<li>su git</li>
+<li>cd</li>
+<li>ssh-keygen -t rsa -C git</li>
+<li>git clone <a href="http://github.com/sitaramc/gitolite" target="_blank" rel="external">http://github.com/sitaramc/gitolite</a></li>
+<li>mkdir -p \$HOME/bin</li>
+<li>gitolite/install -to \$HOME/bin</li>
+<li>\$HOME/bin/gitolite setup -pk $HOME/.ssh/git.pub</li>
+<li>git clone git@localhost:gitolite-admin</li>
+</ol>
+<h2 id="adding-users-and-repos"><a href="#adding-users-and-repos" class="headerlink" title="adding users and repos"></a>adding users and repos</h2><p>client in git bash:</p>
+<ol>
+<li>ssh-keygen -t rsa -C git UserName</li>
+<li>scp C:\Users\yhn.ssh\id_rsa.pub git@IP:/home/git</li>
+<li>in sourcetree: 工具-选项-SSH客户端配置-OpenSSH</li>
+</ol>
+<p>server:</p>
+<ol>
+<li>cd</li>
+<li>mv /home/git/id_rsa.pub gitolite-admin/keydir/UserName.pub</li>
+<li>cd gitolite-admin</li>
+<li>vi /conf/gitolite.conf</li>
+<li>git add .</li>
+<li>git commig -m ‘add key add project add user’</li>
+<li>git push</li>
+</ol>
+<h2 id="gitolite-conf"><a href="#gitolite-conf" class="headerlink" title="gitolite.conf"></a>gitolite.conf</h2><h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><pre><code>#group
+@UserGroup      =   UserName UserName UserName
+
+#project
+repo ProjectName
+    RW+                     =   UserName
+    -   master              =   UserName
+    -   refs/tags/v[0-9]    =   UserName
+    RW                      =   UserName
+    RW  refs/tags/v[0-9]    =   UserName
+    R                       =   UserName
+</code></pre><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>当新用户使用时，先把用户的ssh-key以用户名命名添加到keydir，然后在gitolite.conf添加对应用户，走git命令push到项目中。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://go.wangxx.win/2017/04/07/mongodb-aggregate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2139,7 +2439,7 @@ except Exception, ex:
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2152,7 +2452,7 @@ except Exception, ex:
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
